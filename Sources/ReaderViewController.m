@@ -221,6 +221,11 @@
 			}
 		];
 
+        // If a person scrolls very fast, the call to draw the content is never called.
+        // this will check to see if the current page is in contentViews, and if not, call it to be displayed
+        if(!CFArrayContainsValue((__bridge CFArrayRef)contentViews.allKeys, CFRangeMake(0, [contentViews.allKeys count]), (CFNumberRef)document.pageNumber))
+            [self layoutContentViews:scrollView];
+
 		[mainToolbar setBookmarkState:[document.bookmarks containsIndex:page]];
 
 		[mainPagebar updatePagebar]; // Update page bar
